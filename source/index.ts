@@ -1,16 +1,44 @@
-import { load } from "js-yaml";
-const parseMD = (contents) => {
-  const blocks = contents.split(/^---$/m);
-  const results = [];
-  const validBlocks = blocks.filter((block) => block.trim());
-  for (let i = 0; i < validBlocks.length; i += 2) {
-    const metadata = validBlocks[i] ? load(validBlocks[i].trim()) : {};
-    const content = validBlocks[i + 1] ? validBlocks[i + 1].trim() : "";
-    results.push({
-      metadata,
-      content,
-    });
+import { load } from 'js-yaml'
+
+interface Block {
+  metadata: Record<string, unknown>;
+  content: string;
+}
+
+export interface ParseMD {
+  (contents: string): Block[];
+}
+
+const chunks = <T>(arr: T[], size: number): T[][] =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
+    arr.slice(i * size, i * size + size)
+  )
+
+// 主解析函数
+const parseMD: ParseMD = (contents) => {
+  try {
+    const blocks = contents
+      .split(/^---$/m)
+      .map((block) => block.trim())
+      .filter(Boolean)
+
+    if (blocks.length === 1) {
+      return [
+        {
+          metadata: {},
+          content: blocks[0],
+        },
+      ]
+    }
+
+    return chunks(blocks, 2).map(([metaBlock, contentBlock = '']) => ({
+      metadata: metaBlock ? (load(metaBlock) as Record<string, unknown>) : {},
+      content: contentBlock,
+    }))
+  } catch (error) {
+    console.error('Failed to parse markdown:', error)
+    return [{ metadata: {}, content: contents }]
   }
-  return results;
-};
-export default parseMD;
+}
+
+export default parseMD

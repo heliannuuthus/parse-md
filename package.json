@@ -1,6 +1,6 @@
 {
-  "name": "parse-md",
-  "version": "3.0.3",
+  "name": "heliannuuthus-parse-md",
+  "version": "0.0.1",
   "description": "Separate markdown file's metadata from its content",
   "main": "./dist/index.js",
   "exports": {
@@ -9,14 +9,13 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git@github.com:rpearce/parse-md.git"
+    "url": "git@github.com:heliannuuthus/parse-md.git"
   },
-  "homepage": "https://github.com/rpearce/parse-md",
-  "bugs": "https://github.com/rpearce/parse-md/issues",
-  "author": "Robert Pearce <me@robertwpearce.com>",
+  "homepage": "https://github.com/heliannuuthus/parse-md",
+  "bugs": "https://github.com/heliannuuthus/parse-md/issues",
+  "author": "Helian Nuuthus <heliannuuthus@gmail.com>",
   "contributors": [
-    "Robert Pearce <me@robertwpearce.com> (https://robertwpearce.com)",
-    "Alex Gherghisan <> (https://www.alexghr.me)"
+    "Helian Nuuthus <heliannuuthus@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [
